@@ -68,7 +68,7 @@ public:
     
     
     // We wait for all system to be ready an amount of seconds
-    float seconds_to_wait = 5.0;
+    float seconds_to_wait = 2.0;
     this->WaitForseconds(seconds_to_wait);
 
     // Update Time Init
@@ -301,9 +301,9 @@ public:
   double z_axis_force = 0.0;
   double x_origin = 0.0;
   double y_origin = 0.0;
-  double z_origin = 1.0;
+  double z_origin = 1.5;
   
-  double random_range = 0.1;
+  double random_range = 0.0;
 
   // Reseting Flag
   bool reseting_plugin = false;
