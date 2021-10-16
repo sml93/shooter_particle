@@ -296,8 +296,8 @@ public:
   // Time Memory
   double old_secs;
   // Force Direction
-  double x_axis_force = -100.0;
-  double y_axis_force = -100.0;
+  double x_axis_force = 0.0;
+  double y_axis_force = 0.0;
   double z_axis_force = 0.0;
   double x_origin = 0.0;
   double y_origin = 0.0;
