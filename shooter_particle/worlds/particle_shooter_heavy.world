@@ -14,13 +14,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere2</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere3</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -33,13 +33,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere5</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere6</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
@@ -51,7 +51,7 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere8</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
@@ -70,13 +70,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere11</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere12</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
         <include>
@@ -88,13 +88,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere14</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere15</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -107,13 +107,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere17</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere18</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
@@ -125,13 +125,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere20</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere21</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -144,13 +144,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere23</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere24</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
         <include>
@@ -162,13 +162,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere26</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere27</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -181,13 +181,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere29</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere30</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
@@ -199,13 +199,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere32</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere33</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -218,18 +218,18 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere35</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere36</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
     
-        <include>
+    <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere37</name>
       <pose>0 0 0 0 0 0</pose>
@@ -238,13 +238,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere38</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere39</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -257,13 +257,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere41</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere42</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
@@ -275,13 +275,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere44</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere45</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -294,13 +294,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere47</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere48</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
         <include>
@@ -312,13 +312,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere50</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere51</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -331,13 +331,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere53</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere54</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
@@ -349,13 +349,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere56</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere57</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     
@@ -368,13 +368,13 @@
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere59</name>
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
     <include>
       <uri>model://particle_sphere</uri>
       <name>particle_sphere60</name>
-      <pose>0 2 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
     </include>
     
         <include>
@@ -668,7 +668,7 @@
       <y_origin>0.0</y_origin> <!-- original value is 0.0 for the start of the shooting -->
       <z_origin>1.5</z_origin> <!-- original value is 0.5 for the start of the shooting -->
       
-      <random_range>0.0</random_range> <!-- original value is 0.5 for the shot/spray radius -->
+      <random_range>0.5</random_range> <!-- original value is 0.5 for the shot/spray radius -->
       
     </plugin>
 
