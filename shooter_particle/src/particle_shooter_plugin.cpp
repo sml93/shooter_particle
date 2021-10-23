@@ -1,5 +1,6 @@
 #include <gazebo/common/Plugin.hh>
 #include <ros/ros.h>
+#include <cmath>
 
 #include <gazebo/physics/World.hh>
 #include <gazebo/physics/Model.hh>
@@ -38,7 +39,7 @@ public:
       return;
     }
     
-    
+    double alpha=10;
     this->world = _world;
     GZ_ASSERT(this->world != NULL, "Got NULL world pointer!");
     this->sdf = _sdf;
@@ -49,11 +50,12 @@ public:
       this->reset_frequency = _sdf->Get<double>("reset_frequency");
 
     if (_sdf->HasElement("x_axis_force"))
-      this->x_axis_force = _sdf->Get<double>("x_axis_force");
+      //this->x_axis_force = _sdf->Get<double>("x_axis_force");
+      this->x_axis_force = -(_sdf->Get<double>("z_axis_force"))*sin(alpha*3.14159/180);
     if (_sdf->HasElement("y_axis_force"))
       this->y_axis_force = _sdf->Get<double>("y_axis_force");
     if (_sdf->HasElement("z_axis_force"))
-      this->z_axis_force = _sdf->Get<double>("z_axis_force");
+      this->z_axis_force = (_sdf->Get<double>("z_axis_force"))*cos(alpha*3.14159/180);
       
     if (_sdf->HasElement("x_origin"))
       this->x_origin = _sdf->Get<double>("x_origin");

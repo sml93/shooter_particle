@@ -111,7 +111,7 @@
     <scene>
       <sky>
         <clouds>
-          <speed>12</speed>
+          <speed>8</speed>
         </clouds>
       </sky>
     </scene>
