@@ -20,6 +20,11 @@
 #include <ignition/math/Vector3.hh>
 #include <ignition/math/Quaternion.hh>
 
+#include <std_msgs/Float32.h>
+#include "ros/callback_queue.h"
+#include "ros/subscribe_options.h"
+
+
 namespace gazebo
 {
 class ParticleShooterPlugin : public WorldPlugin
@@ -39,6 +44,9 @@ public:
       return;
     }
     
+
+    this->rosNode.reset(new )
+
     double alpha=10;
     this->world = _world;
     GZ_ASSERT(this->world != NULL, "Got NULL world pointer!");
