@@ -1,6 +1,7 @@
 #include <gazebo/common/Plugin.hh>
 #include <ros/ros.h>
 #include <cmath>
+#include <iostream>
 
 #include <gazebo/physics/World.hh>
 #include <gazebo/physics/Model.hh>
@@ -20,15 +21,38 @@
 #include <ignition/math/Vector3.hh>
 #include <ignition/math/Quaternion.hh>
 
-#include <std_msgs/Float32.h>
-#include "ros/callback_queue.h"
-#include "ros/subscribe_options.h"
+// #include <std_msgs/Float32.h>
+// #include <std_msgs/Float64.h>
+// #include "ros/callback_queue.h"
+// #include "ros/subscribe_options.h"
 
 
 namespace gazebo
 {
 class ParticleShooterPlugin : public WorldPlugin
 {
+
+// new addition
+// private:
+//   std::unique_ptr<ros::NodeHandle> rosNode;
+//   ros::Publisher rosPub;
+//   ros::Subscriber rosSub;
+//   std_msgs::Float64 reading;
+//   int check = 1;
+
+  // void callback(const std_msgs::Float64::ConstPtr& msg)
+  // {
+  //   reading.data = msg->data;
+  // }
+
+  // //new addition
+  // void counter()
+  // {
+  //   std_msgs::Float64 counter;
+  //   counter.data = 10.0;
+  //   rosPub.publish(counter);
+  // }
+
 public:
   ParticleShooterPlugin() : WorldPlugin()
   {
@@ -40,14 +64,19 @@ public:
     if (!ros::isInitialized())
     {
       ROS_FATAL_STREAM("A ROS node for Gazebo has not been initialized, unable to load plugin. "
-        << "Load the Gazebo system plugin 'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
+        << "Load the Gazebo system plugin 'libgazebo_ros_api_pl ugin.so' in the gazebo_ros package)");
       return;
     }
     
+    // //new edition
+    // this->rosNode.reset(new ros::NodeHandle("angle"));
+    // this->rosPub = this->rosNode->advertise<std_msgs::Float64>("angle", 10);
+    // this->rosSub = this->rosNode->subscribe("angle", 10, &ParticleShooterPlugin::callback, this);
+    // ros::spinOnce();
 
-    this->rosNode.reset(new )
+    //new addition
+    double alpha= 10;
 
-    double alpha=10;
     this->world = _world;
     GZ_ASSERT(this->world != NULL, "Got NULL world pointer!");
     this->sdf = _sdf;
@@ -259,14 +288,12 @@ public:
 
     }
 
-    
 
   }
   
   
   void SetForceParticle(boost::shared_ptr<gazebo::physics::Model> model)
-  {
-      
+  { 
     std::string model_name = model->GetName();
 
     // If the model name contains the substring particle, we consider it a particle
