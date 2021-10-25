@@ -29,7 +29,7 @@
 
 class ParticleShooterPlugin
 {
-	public:
+	private:
 		// ROS NodeHandle
 		ros::NodeHandle nh_;
 		ros::NodeHandle nh_priv_;
@@ -41,6 +41,7 @@ class ParticleShooterPlugin
 		// ROS Topic Subscribers
 		ros::Subscribers angle;
 
+	public:
 		// Variables
 		// Update Loop frequency, rate at which we restart the positions and apply force to particles
 		double reset_frequency = 2.0;
