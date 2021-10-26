@@ -1,8 +1,11 @@
+// #ifndef _PARTICLE_SHOOTER_PLUGIN_HH_
+// #define _PARTICLE_SHOOTER_PLUGIN_HH_
+
 #include <gazebo/common/Plugin.hh>
-#include <ros/ros.h>
-#include <ros/callback_queue.h>
-#include <ros/subscribe_options.h>
-#include <std_msgs/Float32.h>
+#include "ros/ros.h"
+#include "ros/callback_queue.h"
+#include "ros/subscribe_options.h"
+#include "std_msgs/Float32.h"
 #include <thread>
 #include <cmath>
 #include <math.h>
@@ -57,15 +60,15 @@ public:
     if (_sdf->HasElement("reset_frequency"))
       this->reset_frequency = _sdf->Get<double>("reset_frequency");
     if (_sdf->HasElement("alpha"))
-      this->alpha = _sdf->Get<double>("alpha");
+      this->alpha = _sdf->Get<float>("alpha");
 
     if (_sdf->HasElement("x_axis_force"))
       //this->x_axis_force = _sdf->Get<double>("x_axis_force");
-      this->x_axis_force = -(_sdf->Get<double>("z_axis_force"))*sin(this->alpha*3.14159/180);
+      this->x_axis_force = -(_sdf->Get<double>("z_axis_force"));
     if (_sdf->HasElement("y_axis_force"))
       this->y_axis_force = _sdf->Get<double>("y_axis_force");
     if (_sdf->HasElement("z_axis_force"))
-      this->z_axis_force = (_sdf->Get<double>("z_axis_force"))*cos(this->alpha*3.14159/180);
+      this->z_axis_force = (_sdf->Get<double>("z_axis_force"));
       
     if (_sdf->HasElement("x_origin"))
       this->x_origin = _sdf->Get<double>("x_origin");
@@ -123,9 +126,15 @@ public:
 
   }
 
+  public: void SetAlpha(const double &_alph)
+  {
+    this->alpha = _alph;
+  }
+
+
   public: void OnRosMsg(const std_msgs::Float32ConstPtr &_msg)
   {
-    this->alpha = (_msg->data);
+    this->SetAlpha(_msg->data);
   }
 
 
@@ -301,8 +310,8 @@ public:
     // If the model name contains the substring particle, we consider it a particle
     if (model_name.find(this->particle_base_name) != std::string::npos)
     {
-        ROS_WARN("FORCE APPLIED[X,Y,Z]=[%f,%f,%f]", this->x_axis_force, this->y_axis_force, this->z_axis_force);
-        model->GetLink("link")->SetForce(ignition::math::Vector3d(this->x_axis_force, this->y_axis_force, this->z_axis_force));
+        ROS_WARN("FORCE APPLIED[X,Y,Z]=[%f,%f,%f]", this->x_axis_force*sin(this->alpha*deg2rad), this->y_axis_force, this->z_axis_force*cos(this->alpha*deg2rad));
+        model->GetLink("link")->SetForce(ignition::math::Vector3d(this->x_axis_force*sin(this->alpha*deg2rad), this->y_axis_force, this->z_axis_force*cos(this->alpha*deg2rad)));
     }
   }
 
@@ -381,3 +390,4 @@ public:
 };
 GZ_REGISTER_WORLD_PLUGIN(ParticleShooterPlugin)
 }
+// #endif // ifndef _PARTICLE_SHOOTER_PLUGIN_HH_
