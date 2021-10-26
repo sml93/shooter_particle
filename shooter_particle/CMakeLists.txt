@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	gazebo_ros
 	gazebo_plugins
+	std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -22,16 +23,20 @@ find_package(gazebo REQUIRED)
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
+include_directories(${roscpp_INCLUDE_DIRS})
+include_directories(${std_msgs_INCLUDE_DIRS})
+
 
 # For particle_shooter_plugin plugin
 add_library(particle_shooter_plugin src/particle_shooter_plugin.cpp)
-target_link_libraries(particle_shooter_plugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+target_link_libraries(particle_shooter_plugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 
 
 catkin_package(
   DEPENDS 
     roscpp 
-    gazebo_ros 
+    gazebo_ros
+    std_msgs 
 )
 
 
@@ -131,7 +136,7 @@ catkin_package(
 ## Build ##
 ###########
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(include)
@@ -143,7 +148,7 @@ include_directories( ${catkin_INCLUDE_DIRS}
 add_library(${PROJECT_NAME} src/particle_shooter_plugin.cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries( ${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} particle_shooter_plugin )
+target_link_libraries( ${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES} particle_shooter_plugin )
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations

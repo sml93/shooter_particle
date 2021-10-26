@@ -1,6 +1,11 @@
 #include <gazebo/common/Plugin.hh>
 #include <ros/ros.h>
+#include <ros/callback_queue.h>
+#include <ros/subscribe_options.h>
+#include <std_msgs/Float32.h>
+#include <thread>
 #include <cmath>
+#include <math.h>
 
 #include <gazebo/physics/World.hh>
 #include <gazebo/physics/Model.hh>
@@ -12,6 +17,7 @@
 #include <boost/bind.hpp>
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
+#include <gazebo/transport/transport.hh>
 #include <gazebo/common/common.hh>
 #include <stdio.h>
 
@@ -20,14 +26,17 @@
 #include <ignition/math/Vector3.hh>
 #include <ignition/math/Quaternion.hh>
 
+#define deg2rad (M_PI / 180.0)
+#define rad2deg (180.0 / M_PI)
+
+
 namespace gazebo
 {
 class ParticleShooterPlugin : public WorldPlugin
 {
 public:
   ParticleShooterPlugin() : WorldPlugin()
-  {
-  }
+  { }
 
   void Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
   {
@@ -39,7 +48,6 @@ public:
       return;
     }
     
-    double alpha=10;
     this->world = _world;
     GZ_ASSERT(this->world != NULL, "Got NULL world pointer!");
     this->sdf = _sdf;
@@ -48,14 +56,16 @@ public:
     // Check if Config Elements exist, otherwise they will have default value
     if (_sdf->HasElement("reset_frequency"))
       this->reset_frequency = _sdf->Get<double>("reset_frequency");
+    if (_sdf->HasElement("alpha"))
+      this->alpha = _sdf->Get<double>("alpha");
 
     if (_sdf->HasElement("x_axis_force"))
       //this->x_axis_force = _sdf->Get<double>("x_axis_force");
-      this->x_axis_force = -(_sdf->Get<double>("z_axis_force"))*sin(alpha*3.14159/180);
+      this->x_axis_force = -(_sdf->Get<double>("z_axis_force"))*sin(this->alpha*3.14159/180);
     if (_sdf->HasElement("y_axis_force"))
       this->y_axis_force = _sdf->Get<double>("y_axis_force");
     if (_sdf->HasElement("z_axis_force"))
-      this->z_axis_force = (_sdf->Get<double>("z_axis_force"))*cos(alpha*3.14159/180);
+      this->z_axis_force = (_sdf->Get<double>("z_axis_force"))*cos(this->alpha*3.14159/180);
       
     if (_sdf->HasElement("x_origin"))
       this->x_origin = _sdf->Get<double>("x_origin");
@@ -84,6 +94,38 @@ public:
     OutputParticleList();
 
     ROS_DEBUG("Particle Shooter Ready....");
+
+    // Initialize ros, if it has not already bee initialized.
+    if (!ros::isInitialized())
+    {
+      int argc = 0;
+      char **argv = NULL;
+      ros::init(argc, argv, "gazebo_client",
+          ros::init_options::NoSigintHandler);
+    }
+
+    // Create our ROS node. This acts in a similar manner to
+    // the Gazebo node
+    this->rosNode.reset(new ros::NodeHandle("gazebo_client"));
+
+    // Create a named topic, and subscribe to it.
+    ros::SubscribeOptions so =
+      ros::SubscribeOptions::create<std_msgs::Float32>(
+          "/alpha_angle",
+          1,
+          boost::bind(&ParticleShooterPlugin::OnRosMsg, this, _1),
+          ros::VoidPtr(), &this->rosQueue);
+    this->rosSub = this->rosNode->subscribe(so);
+
+    // Spin up the queue helper thread.
+    this->rosQueueThread =
+      std::thread(std::bind(&ParticleShooterPlugin::QueueThread, this));
+
+  }
+
+  public: void OnRosMsg(const std_msgs::Float32ConstPtr &_msg)
+  {
+    this->alpha = (_msg->data);
   }
 
 
@@ -150,9 +192,6 @@ public:
 
         }
     }
-
-
-
   }
 
   void WaitForseconds(float seconds_to_wait)
@@ -181,7 +220,7 @@ public:
   
   
   
-    void GetParticleList()
+  void GetParticleList()
     {
         this->modelIDToName.clear();
         // Initialize color map.
@@ -202,7 +241,7 @@ public:
         this->modelIDToName_size = modelIDToName.size();
     }
     
-    void OutputParticleList()
+  void OutputParticleList()
   {
     ROS_WARN("Start OutputParticleList...");
 
@@ -248,11 +287,9 @@ public:
                             );
         
         ROS_DEBUG("Moving model=%s....END",model_name.c_str());
+        ROS_DEBUG("Alpha:%f", this->alpha);
 
     }
-
-    
-
   }
   
   
@@ -267,18 +304,27 @@ public:
         ROS_WARN("FORCE APPLIED[X,Y,Z]=[%f,%f,%f]", this->x_axis_force, this->y_axis_force, this->z_axis_force);
         model->GetLink("link")->SetForce(ignition::math::Vector3d(this->x_axis_force, this->y_axis_force, this->z_axis_force));
     }
-
-    
-
   }
 
 
   
-  float RandomFloat(float a, float b) {
+  float RandomFloat(float a, float b)
+  {
     float random = ((float) rand()) / (float) RAND_MAX;
     float diff = b - a;
     float r = random * diff;
     return a + r;
+  }
+
+
+  /// \brief ROS helper function that processes messages
+  private: void QueueThread()
+  {
+    static const double timeout = 0.01;
+    while (this->rosNode->ok())
+    {
+      this->rosQueue.callAvailable(ros::WallDuration(timeout));
+    }
   }
   
   
@@ -291,10 +337,27 @@ public:
   protected: sdf::ElementPtr sdf;
   /// \brief Maps model IDs to ModelNames
   private: std::map<int, std::string> modelIDToName;
+
+
+  /// \brief A node use for ROS transport
+  private: std::unique_ptr<ros::NodeHandle> rosNode;
+
+  /// \brief A ROS subscriber
+  private: ros::Subscriber rosSub;
+
+  /// \brief A ROS callbackqueue that helps process messages
+  private: ros::CallbackQueue rosQueue;
+
+  /// \brief A thread the keeps running the rosQueue
+  private: std::thread rosQueueThread;
   
   
   // Update Loop frequency, rate at which we restart the positions and apply force to particles
   double reset_frequency = 2.0;
+
+  // alpha
+  double alpha = 0.0;
+
   // Time Memory
   double old_secs;
   // Force Direction

@@ -24,10 +24,12 @@
 #include <ignition/math/Vector3.hh>
 #include <ignition/math/Quaternion.hh>
 
+#include <std_msgs/Float32>
+
 #define deg2rad (M_PI / 180.0)
 #define rad2deg (180.0 / M_PI)
 
-class ParticleShooterPlugin
+class ParticleShooter
 {
 	private:
 		// ROS NodeHandle
@@ -39,9 +41,13 @@ class ParticleShooterPlugin
 		// ROS Topic Publishers
 
 		// ROS Topic Subscribers
-		ros::Subscribers angle;
+		ros::Subscriber angle;
 
 	public:
+		ParticleShooter();
+		~ParticleShooterAngle();
+		bool init();
+		bool controlLoop();
 		// Variables
 		// Update Loop frequency, rate at which we restart the positions and apply force to particles
 		double reset_frequency = 2.0;
@@ -67,5 +73,6 @@ class ParticleShooterPlugin
 		void OutputParticleList();
 		void MoveParticle(boost::shared_ptr<gazebo::physics::Model> model);
 		void SetForceParticle(boost::shared_ptr<gazebo::physics::Model> model);
-
+		float RandomFloat(float a, float b);
+		void alphaAngleCallBack(const std_msgs::Float32::ConstPtr &msg);
 }
