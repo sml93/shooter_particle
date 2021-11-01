@@ -98,7 +98,7 @@ public:
 
     ROS_DEBUG("Particle Shooter Ready....");
 
-    // Initialize ros, if it has not already bee initialized.
+    // Initialize ros, if it has not already been initialized.
     if (!ros::isInitialized())
     {
       int argc = 0;
