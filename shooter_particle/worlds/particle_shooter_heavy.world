@@ -633,7 +633,7 @@
     <include>
       <uri>model://testing_surface</uri>
       <name>vertical_surface1</name>
-      <pose>1.5 0 2.5 0 1.57 3.14159</pose>
+      <pose>1.5 0 1.5 0 1.57 3.14159</pose>
     </include>
 
 
@@ -657,7 +657,7 @@
     <include>
       <uri>model://testing_surface</uri>
       <name>vertical_surface3</name>
-      <pose>-2.3 0 2.5 0 1.57 0</pose>
+      <pose>-1.5 0 1.5 0 1.57 0</pose>
     </include>
     
 
