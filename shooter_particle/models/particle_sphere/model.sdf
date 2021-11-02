@@ -29,7 +29,7 @@
             </friction>
             <contact>
               <ode>
-                <kp>75000.0</kp>
+                <kp>100000.0</kp>
                 <kd>1000.0</kd>
                 <max_vel>0.5</max_vel>
                 <min_depth>0.002</min_depth>
