@@ -112,13 +112,21 @@ public:
     this->rosNode.reset(new ros::NodeHandle("gazebo_client"));
 
     // Create a named topic, and subscribe to it.
-    ros::SubscribeOptions so =
+    ros::SubscribeOptions aa =
       ros::SubscribeOptions::create<std_msgs::Float32>(
           "/alpha_angle",
           1,
-          boost::bind(&ParticleShooterPlugin::OnRosMsg, this, _1),
+          boost::bind(&ParticleShooterPlugin::OnRosMsgAlph, this, _1),
           ros::VoidPtr(), &this->rosQueue);
-    this->rosSub = this->rosNode->subscribe(so);
+    this->rosSub = this->rosNode->subscribe(aa);
+
+    ros::SubscribeOptions zz = 
+      ros::SubscribeOptions::create<std_msgs::Float32>(
+          "/z",
+          1,
+          boost::bind(&ParticleShooterPlugin::OnRosMsgZorigin, this, _1),
+          ros::VoidPtr(), &this->rosQueue);
+    this->rosSub_z = this->rosNode->subscribe(zz);
 
     // Spin up the queue helper thread.
     this->rosQueueThread =
@@ -132,10 +140,24 @@ public:
   }
 
 
-  public: void OnRosMsg(const std_msgs::Float32ConstPtr &_msg)
+  public: void OnRosMsgAlph(const std_msgs::Float32ConstPtr &_msg)
   {
     this->SetAlpha(_msg->data);
   }
+
+
+  public: void SetZ_origin(const double &_zz)
+  {
+    this->z_origin = _zz;
+  }
+
+
+  public: void OnRosMsgZorigin(const std_msgs::Float32ConstPtr &_msg)
+  {
+    this->SetZ_origin(_msg->data);
+  }
+
+
 
 
   void Reset()
@@ -297,6 +319,8 @@ public:
         
         ROS_DEBUG("Moving model=%s....END",model_name.c_str());
         ROS_DEBUG("Alpha:%f", this->alpha);
+        ROS_DEBUG("z_origin:%f", this->z_origin);
+
 
     }
   }
@@ -353,6 +377,7 @@ public:
 
   /// \brief A ROS subscriber
   private: ros::Subscriber rosSub;
+  private: ros::Subscriber rosSub_z;
 
   /// \brief A ROS callbackqueue that helps process messages
   private: ros::CallbackQueue rosQueue;
